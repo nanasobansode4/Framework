@@ -10,8 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import org.testng.reporters.TestHTMLReporter;
-
+import org.testng.annotations.Parameters;
 import com.SwadeshMart.Utility.BrowserFactory;
 import com.SwadeshMart.Utility.ConfigDataProvider;
 import com.SwadeshMart.Utility.ExcelDataProvider;
@@ -19,7 +18,6 @@ import com.SwadeshMart.Utility.Helper;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.MediaEntityModelProvider;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 public class BaseClass {
@@ -40,11 +38,14 @@ public class BaseClass {
 		report.attachReporter(extent);
 		Reporter.log("Setting Done", true);
 	}
+	@Parameters({"browser","urlToBeTested"})
 	@BeforeClass
-	public void setup() {
+	public void setup(String browser,String url) {
 		Reporter.log("Trying to start Browser", true);
-		driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getstagingUrl());
-		System.out.println("");
+		//Passing parameters by using config.properties file
+		//driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getstagingUrl());
+		//Passing paramters from maven build
+		driver = BrowserFactory.startApplication(driver, browser, url);
 	}
 
 	@AfterClass
