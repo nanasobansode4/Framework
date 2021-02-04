@@ -44,6 +44,7 @@ public class BaseClass {
 	public void setup() {
 		Reporter.log("Trying to start Browser", true);
 		driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getstagingUrl());
+		System.out.println("");
 	}
 
 	@AfterClass
